@@ -19,7 +19,7 @@ public class CustomErrorDecoder implements ErrorDecoder
     {
         if (response == null) return new FeignClientException(new ResponseMessage("unexpected error",-100), "error in " + methodKey);
 
-        log.error("BPMN response {}", response.toString());
+        log.error("response {}", response.toString());
         Optional<String> optionalError = ResponseUtils.extractError(response);
         optionalError.ifPresent(error->log.error("message : {}",error));
         return new FeignClientException(new ResponseMessage(response.reason(), response.status()), optionalError.orElse("unexpected error"));
